@@ -1,52 +1,38 @@
-import { useState } from 'react';
-import { Product, CartItem, productService } from '@/services/product-service';
+import { useState, useEffect } from "react";
+import { Product } from "@/services/product-service";
+import { CartItem, cartService } from "@/services/cart-service";
 
 export function useCart() {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product, quantity: number = 1) => {
-    if (!productService.validateQuantity(product, quantity)) {
-      return false;
-    }
+  const updateCart = () => {
+    setCart([...cartService.getCartItems()]);
+  };
 
-    setCart(prevCart => {
-      const existingItem = prevCart.find(item => item.product.id === product.id);
-      
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      }
-      
-      return [...prevCart, { product, quantity }];
-    });
-    
-    return true;
+  const addToCart = (product: Product, quantity: number = 1) => {
+    const success = cartService.addToCart(product, quantity);
+    if (success) {
+      updateCart();
+    }
+    return success;
   };
 
   const removeFromCart = (productId: string) => {
-    setCart(prevCart => prevCart.filter(item => item.product.id !== productId));
+    cartService.removeFromCart(productId);
+    updateCart();
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.product.id === productId
-          ? { ...item, quantity }
-          : item
-      )
-    );
+    cartService.updateQuantity(productId, quantity);
+    updateCart();
   };
 
-  const total = productService.calculateTotal(cart);
-  const itemCount = cart.reduce((count, item) => count + item.quantity, 0);
+  const total = cartService.calculateTotal();
+  const itemCount = cartService.getItemCount();
+
+  useEffect(() => {
+    updateCart();
+  }, []);
 
   return {
     cart,
@@ -54,6 +40,6 @@ export function useCart() {
     removeFromCart,
     updateQuantity,
     total,
-    itemCount
+    itemCount,
   };
 }

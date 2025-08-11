@@ -1,4 +1,4 @@
-import { CartItem } from "@/services/product-service";
+import { CartItem } from "@/services/cart-service";
 
 interface CartProps {
   cart: CartItem[];
