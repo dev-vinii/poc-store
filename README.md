@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# POC Store
+
+A proof-of-concept e-commerce store demonstrating clean architecture with **Services** for business logic and **Hooks** for React state management.
+
+## Architecture
+
+```
+src/
+├── services/          # Business logic layer
+│   ├── product-service.ts
+│   └── cart-service.ts
+├── hooks/            # React state management
+│   ├── use-products.ts
+│   └── use-cart.ts
+└── components/       # UI components
+    ├── product-card.tsx
+    └── cart.tsx
+```
+
+### Services Layer
+- **product-service.ts** - Product operations and validation
+- **cart-service.ts** - Cart business logic and calculations
+
+### Hooks Layer  
+- **use-products.ts** - Product data fetching and loading states
+- **use-cart.ts** - Cart state management with service integration
+
+### Components
+- **product-card.tsx** - Individual product display
+- **cart.tsx** - Shopping cart with quantity controls
+
+## Key Features
+
+- ✅ Clean separation of concerns
+- ✅ Business logic isolated in services
+- ✅ React state managed by custom hooks
+- ✅ Components focus purely on UI
+- ✅ TypeScript throughout
+- ✅ Kebab-case file naming
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
 # or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the store in action.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 15 with App Router
+- TypeScript
+- Tailwind CSS
+- React 19
