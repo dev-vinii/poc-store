@@ -10,7 +10,7 @@ export function useCart() {
   };
 
   const addToCart = (product: Product, quantity: number = 1) => {
-    const success = cartService.addToCart(product, quantity);
+    const success = cartService.canAddToCart(product, quantity);
     if (success) {
       updateCart();
     }

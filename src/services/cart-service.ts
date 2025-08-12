@@ -8,7 +8,7 @@ export interface CartItem {
 class CartService {
   private cartItems: CartItem[] = [];
 
-  addToCart = (product: Product, quantity: number = 1): boolean => {
+  canAddToCart = (product: Product, quantity: number = 1): boolean => {
     if (quantity <= 0 || quantity > product.stock) {
       return false;
     }
